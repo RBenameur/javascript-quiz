@@ -5,16 +5,13 @@ var startScreenWrapper = document.querySelector('#start-screen');
 
 var questionWrapper = document.querySelector('#questions');
 
-
 var endScreenWrapper = document.querySelector('#end-screen');
-
 
 var submitButton = document.querySelector('#submit');
 
-
 var score = document.querySelector('#final-score');
 
-var timer = 10;
+var timer = 75;
 
 var index = 0;
 
@@ -32,35 +29,59 @@ function stopQuiz () {
     endScreenWrapper.className = "start";
 
     score.innerHTML = timer
-}
+};
+
+// function to get highscore
+function getHighscore() {
+
+    return JSON.parse(localStorage.getItem('high-score')) || {};
+};
+
+// function to sort list of highscores in descending order 
+function sortHighscore(obj) {
+    var sortedArray =  Object.entries(obj).sort((a, b) => b[1] - a[1]);
+    var sortedObject = Object.fromEntries(sortedArray);;
+    return sortedObject;
+
+};
+
 
 // submit score and reset quiz
 function scoreSubmitted() {
 
+    // get value from initials input
+    var initials = document.querySelector('#initials').value;
+
+    // returns an object of previous highscores
+    var highscore = getHighscore();
+
+    // append 
+    highscore[initials] = score.innerHTML;
+
+    var sortedHighscore = sortHighscore(highscore);
+
+    localStorage.setItem('high-score', JSON.stringify(sortedHighscore));
+
     window.location.reload();
 
-}
+};
 
+// function to loop through questions and replace html with text for current question
 function userAnswered () {
-
-   // console.log(index);
     
-    if (index == 5) {
-        stopQuiz();
-    }
+    if (index == 5) stopQuiz();
 
     index++
 };
 
+// timer 
 function startTimer() {
 
     timer--;
 
     document.querySelector('#time').innerHTML = timer;
 
-    if (timer == 0) {
-        stopQuiz();
-    };
+    if (timer == 0) stopQuiz();
 
 };
 
