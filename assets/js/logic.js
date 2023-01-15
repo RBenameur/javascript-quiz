@@ -1,35 +1,38 @@
 // Global variables
 var startButton = document.querySelector('#start');
 
-//console.log(startButton);
-
 var startScreenWrapper = document.querySelector('#start-screen');
-
-//console.log(startScreenWrapper);
 
 var questionWrapper = document.querySelector('#questions');
 
-//console.log(questionWrapper);
 
 var endScreenWrapper = document.querySelector('#end-screen');
 
-//console.log(endScreenWrapper);
 
 var submitButton = document.querySelector('#submit');
 
-//console.log(submitButton);
 
 var score = document.querySelector('#final-score');
 
-//console.log(score);
-
-var timer = 75;
+var timer = 10;
 
 var index = 0;
 
 var timerInterval = null;
 
 /* ---------------------------------------*/
+
+// function to stop quiz 
+function stopQuiz () {
+
+    clearInterval(timerInterval);
+
+    questionWrapper.className = "hide";
+
+    endScreenWrapper.className = "start";
+
+    score.innerHTML = timer
+}
 
 // submit score and reset quiz
 function scoreSubmitted() {
@@ -39,18 +42,11 @@ function scoreSubmitted() {
 }
 
 function userAnswered () {
-    console.log(index);
+
+   // console.log(index);
     
     if (index == 5) {
-
-        clearInterval(timerInterval);
-
-        questionWrapper.className = "hide";
-
-        endScreenWrapper.className = "start";
-
-        score.innerHTML = timer;
-
+        stopQuiz();
     }
 
     index++
@@ -62,19 +58,8 @@ function startTimer() {
 
     document.querySelector('#time').innerHTML = timer;
 
-    if (timer < 0) {
-
-        // note to self: clear interval timer once time reaches 0
-        clearInterval(timerInterval);
-
-        // note to self: hide question wrapper
-        questionWrapper.className = "hide";
-
-        // note to self: show end screen
-        endScreenWrapper.className = "start";
-
-        // note to self: set the score to zero
-        score.innerHTML = 0;
+    if (timer == 0) {
+        stopQuiz();
     };
 
 };
