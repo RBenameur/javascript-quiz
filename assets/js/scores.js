@@ -1,17 +1,21 @@
+// function to clear highscore history
+
+function clearHistory () {
+
+    localStorage.removeItem('high-score');
+
+    getHighscore();
+
+}
+
 // function to get highscore
-function getHighscore() {
+function getHighscore () {
 
-    return JSON.parse(localStorage.getItem('high-score')) || {};
-};
-
-
-function init () {
+    var highscore = JSON.parse(localStorage.getItem('high-score')) || {};
 
     var highscorelist = document.querySelector('#highscores');
 
     highscorelist.innerHTML = '';
-
-    var highscore = getHighscore();
 
     //console.log(highscore);
 
@@ -26,6 +30,16 @@ function init () {
 
         highscorelist.appendChild(li);
     };
+};
+
+
+function init () {
+
+    var clearHighscore = document.querySelector('#clear');
+
+    getHighscore();
+    
+    clearHighscore.addEventListener('click', clearHistory);
 
 };
 
