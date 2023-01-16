@@ -13,7 +13,7 @@ var score = document.querySelector('#final-score');
 
 var timer = 75;
 
-var index = 0;
+var questionIndex = 0;
 
 var timerInterval = null;
 
@@ -28,7 +28,7 @@ function stopQuiz () {
 
     endScreenWrapper.className = "start";
 
-    score.innerHTML = timer
+    score.innerHTML = timer;
 };
 
 // function to get highscore
@@ -68,10 +68,32 @@ function scoreSubmitted() {
 
 // function to loop through questions and replace html with text for current question
 function userAnswered () {
-    
-    if (index == 5) stopQuiz();
 
-    index++
+    var questionTitle = document.querySelector('#question-title');
+
+    //console.log(questionTitle);
+
+    var choicesList = document.querySelectorAll('#choices button');
+
+   // console.log(choicesList);
+
+    // load in questions from questions js file
+    var question = questions[questionIndex];
+
+   // console.log(question);
+
+    questionTitle.innerHTML = question.title;
+
+    var questionOptions = question.options;
+
+   // console.log(questionOptions)
+
+    // put into loop
+    for (index in questionOptions) choicesList[index].innerHTML= `${index}. ${questionOptions[index]}`;
+    
+    if (questionIndex == 4) stopQuiz();
+
+    questionIndex++
 };
 
 // timer 
