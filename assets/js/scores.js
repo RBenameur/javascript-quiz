@@ -6,7 +6,7 @@ function clearHistory () {
 
     getHighscore();
 
-}
+};
 
 // function to get highscore
 function getHighscore () {
@@ -18,7 +18,6 @@ function getHighscore () {
     highscorelist.innerHTML = '';
 
     //console.log(highscore);
-
 
     for (prop in highscore) {
 

@@ -4,10 +4,10 @@ var questions = [
         options: [
             'incorrect',
             'incorrect',
-            'correct',  /*correct*/
+            'answer',  /*correct*/
             'incorrect',
         ],
-        isCorrect: 'correct'
+        isCorrect: 'answer'
     },
     {
         title: 'test #2',
@@ -15,39 +15,39 @@ var questions = [
             'incorrect',
             'incorrect',
             'incorrect',
-            'correct', /*correct*/
+            'answer', /*correct*/
         ],
-        isCorrect: 'correct'
+        isCorrect: 'answer'
     },
     {
         title: 'test #3',
         options: [
-            'correct', /*correct*/
+            'answer', /*correct*/
             'incorrect',
             'incorrect',
             'incorrect',
         ],
 
-        isCorrect: 'correct'
+        isCorrect: 'answer'
     },
     {
         title: 'test #4',
         options: [
-            'correct', /*correct*/
+            'answer', /*correct*/
             'incorrect',
             'incorrect',
             'incorrect',
         ],
-        isCorrect: 'correct'
+        isCorrect: 'answer'
     },
     {
         title: 'test #5',
         options: [
             'incorrect',
             'incorrect',
-            'correct', /*correct*/
+            'answer', /*correct*/
             'incorrect',
         ],
-        isCorrect: 'correct'
-    },
+        isCorrect: 'answer'
+    }
 ]

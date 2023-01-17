@@ -11,7 +11,7 @@ var submitButton = document.querySelector('#submit');
 
 var score = document.querySelector('#final-score');
 
-var timer = 75;
+var timer = 50;
 
 var questionIndex = 0;
 
@@ -20,7 +20,9 @@ var timerInterval = null;
 /* ---------------------------------------*/
 
 // function to stop quiz 
-function stopQuiz () {
+function stopQuiz (timerValue) {
+
+    console.log(timerValue);
 
     clearInterval(timerInterval);
 
@@ -28,7 +30,7 @@ function stopQuiz () {
 
     endScreenWrapper.className = "start";
 
-    score.innerHTML = timer;
+    score.innerHTML = timerValue;
 };
 
 // function to get highscore
@@ -39,8 +41,11 @@ function getHighscore() {
 
 // function to sort list of highscores in descending order 
 function sortHighscore(obj) {
+
     var sortedArray =  Object.entries(obj).sort((a, b) => b[1] - a[1]);
-    var sortedObject = Object.fromEntries(sortedArray);;
+
+    var sortedObject = Object.fromEntries(sortedArray);
+
     return sortedObject;
 
 };
@@ -67,33 +72,53 @@ function scoreSubmitted() {
 };
 
 // function to loop through questions and replace html with text for current question
-function userAnswered () {
+function userAnswered (event) {
+
+    if (questionIndex == 5) {
+
+        timer -= 10;
+
+        if (timer < 0) timer = 0;
+ 
+        console.log(timer);
+        
+        stopQuiz(timer);
+
+    } else {
+ 
+    console.log(questionIndex);
 
     var questionTitle = document.querySelector('#question-title');
 
-    //console.log(questionTitle);
-
     var choicesList = document.querySelectorAll('#choices button');
-
-   // console.log(choicesList);
 
     // load in questions from questions js file
     var question = questions[questionIndex];
-
-   // console.log(question);
 
     questionTitle.innerHTML = question.title;
 
     var questionOptions = question.options;
 
-   // console.log(questionOptions)
-
     // put into loop
     for (index in questionOptions) choicesList[index].innerHTML= `${index}. ${questionOptions[index]}`;
-    
-    if (questionIndex == 4) stopQuiz();
 
-    questionIndex++
+    if (event !== undefined) {
+
+        var isCorrect = question.isCorrect;
+
+        var clickedButton = event.target.innerHTML;
+
+        if (!clickedButton.includes(isCorrect)) {
+
+            console.log('incorrect');
+
+            timer -= 10;
+        };
+        
+    };
+    };
+
+    questionIndex++ 
 };
 
 // timer 
@@ -103,13 +128,18 @@ function startTimer() {
 
     document.querySelector('#time').innerHTML = timer;
 
-    if (timer == 0) stopQuiz();
+    if (timer < 0) {
+        timer = 0;
+        stopQuiz(timer);
+    }
 
 };
 
 // function triggered when start button clicked
-function quizStarted () {
+function quizStarted (event) {
 
+    event.stopPropagation();
+    
     // note to self: set start screen to hide
     startScreenWrapper.className = "hide";
 
