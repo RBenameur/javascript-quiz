@@ -127,19 +127,21 @@ function userAnswered (event) {
 // timer 
 function startTimer(timerValue) {
     console.log(timerValue)
-    console.log(timer)
-    timer--;
+    //console.log(timer)
+    //timer--;
     timerValue--;
     console.log(timerValue)
-    console.log(timer)
+    //console.log(timer)
 
-    document.querySelector('#time').innerHTML = timer;
+    //document.querySelector('#time').innerHTML = timer;
 
-    if (timer < 0) {
+    document.querySelector('#time').innerHTML = timerValue;
 
-        timer = 0;
+    if (timerValue < 0) {
 
-        stopQuiz(timer);
+        timerValue = 0;
+
+        stopQuiz(timerValue);
     }
 
 };
