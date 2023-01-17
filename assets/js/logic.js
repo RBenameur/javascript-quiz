@@ -1,15 +1,9 @@
 // Global variables
 var startButton = document.querySelector('#start');
 
-var startScreenWrapper = document.querySelector('#start-screen');
-
 var questionWrapper = document.querySelector('#questions');
 
-var endScreenWrapper = document.querySelector('#end-screen');
-
 var submitButton = document.querySelector('#submit');
-
-var score = document.querySelector('#final-score');
 
 var timer = 50;
 
@@ -17,18 +11,19 @@ var questionIndex = 0;
 
 var timerInterval = null;
 
-/* ---------------------------------------*/
 
 // function to stop quiz 
 function stopQuiz (timerValue) {
-
-   // console.log(timerValue);
 
     clearInterval(timerInterval);
 
     questionWrapper.className = "hide";
 
+    var endScreenWrapper = document.querySelector('#end-screen');
+
     endScreenWrapper.className = "start";
+
+    var score = document.querySelector('#final-score');
 
     score.innerHTML = timerValue;
 };
@@ -54,13 +49,10 @@ function sortHighscore(obj) {
 // submit score and reset quiz
 function scoreSubmitted() {
 
-    // get value from initials input
     var initials = document.querySelector('#initials').value;
 
-    // returns an object of previous highscores
     var highscore = getHighscore();
 
-    // append 
     highscore[initials] = score.innerHTML;
 
     var sortedHighscore = sortHighscore(highscore);
@@ -85,14 +77,11 @@ function userAnswered (event) {
         stopQuiz(timer);
 
     } else {
- 
-    //console.log(questionIndex);
 
     var questionTitle = document.querySelector('#question-title');
 
     var choicesList = document.querySelectorAll('#choices button');
 
-    // load in questions from questions js file
     var question = questions[questionIndex];
 
     questionTitle.innerHTML = question.title;
@@ -110,11 +99,8 @@ function userAnswered (event) {
 
         if (!clickedButton.includes(isCorrect)) {
 
-           // console.log('incorrect');
-
             timer -= 10;
 
-            // TEST
             startTimer(timer);
         };
         
@@ -126,14 +112,8 @@ function userAnswered (event) {
 
 // timer 
 function startTimer(timerValue) {
-    console.log(timerValue)
-    //console.log(timer)
-    //timer--;
-    timerValue--;
-    console.log(timerValue)
-    //console.log(timer)
 
-    //document.querySelector('#time').innerHTML = timer;
+    timerValue--;
 
     document.querySelector('#time').innerHTML = timerValue;
 
@@ -150,22 +130,17 @@ function startTimer(timerValue) {
 function quizStarted (event) {
 
     event.stopPropagation();
+
+    var startScreenWrapper = document.querySelector('#start-screen');
     
-    // note to self: set start screen to hide
     startScreenWrapper.className = "hide";
 
-    // note to self: set questions wrapper to show first question
     questionWrapper.className = "start";
 
-
-    // note to self: trigger function after first question answered.
     userAnswered();
-
-    // trigger set interval
 
     document.querySelector('#time').innerHTML = timer;
 
-    // note to self: trigger timer interval pass in start timer function as argument
     timerInterval = setInterval(startTimer(timer),1000);
 
 };
