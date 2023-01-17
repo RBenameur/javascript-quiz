@@ -22,7 +22,7 @@ var timerInterval = null;
 // function to stop quiz 
 function stopQuiz (timerValue) {
 
-    console.log(timerValue);
+   // console.log(timerValue);
 
     clearInterval(timerInterval);
 
@@ -79,14 +79,14 @@ function userAnswered (event) {
         timer -= 10;
 
         if (timer < 0) timer = 0;
- 
-        console.log(timer);
+
+        document.querySelector('#time').innerHTML = timer;
         
         stopQuiz(timer);
 
     } else {
  
-    console.log(questionIndex);
+    //console.log(questionIndex);
 
     var questionTitle = document.querySelector('#question-title');
 
@@ -110,9 +110,12 @@ function userAnswered (event) {
 
         if (!clickedButton.includes(isCorrect)) {
 
-            console.log('incorrect');
+           // console.log('incorrect');
 
             timer -= 10;
+
+            // TEST
+            startTimer(timer);
         };
         
     };
@@ -122,14 +125,20 @@ function userAnswered (event) {
 };
 
 // timer 
-function startTimer() {
-
+function startTimer(timerValue) {
+    console.log(timerValue)
+    console.log(timer)
     timer--;
+    timerValue--;
+    console.log(timerValue)
+    console.log(timer)
 
     document.querySelector('#time').innerHTML = timer;
 
     if (timer < 0) {
+
         timer = 0;
+
         stopQuiz(timer);
     }
 
@@ -155,7 +164,7 @@ function quizStarted (event) {
     document.querySelector('#time').innerHTML = timer;
 
     // note to self: trigger timer interval pass in start timer function as argument
-    timerInterval = setInterval(startTimer,1000);
+    timerInterval = setInterval(startTimer(timer),1000);
 
 };
 
