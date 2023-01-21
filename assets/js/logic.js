@@ -5,6 +5,8 @@ var questionWrapper = document.querySelector('#questions');
 
 var submitButton = document.querySelector('#submit');
 
+var score = document.querySelector('#final-score');
+
 var timer = 50;
 
 var questionIndex = 0;
@@ -13,7 +15,7 @@ var timerInterval = null;
 
 
 // function to stop quiz 
-function stopQuiz (timerValue) {
+function stopQuiz () {
 
     clearInterval(timerInterval);
 
@@ -23,9 +25,7 @@ function stopQuiz (timerValue) {
 
     endScreenWrapper.className = "start";
 
-    var score = document.querySelector('#final-score');
-
-    score.innerHTML = timerValue;
+    score.innerHTML = timer;
 };
 
 // function to get highscore
@@ -63,66 +63,94 @@ function scoreSubmitted() {
 
 };
 
-// function to loop through questions and replace html with text for current question
-function userAnswered (event) {
 
-    if (questionIndex == 5) {
+// function to check if answer was correct
 
-        timer -= 10;
+function isCorrect (event) {
 
-        if (timer < 0) timer = 0;
+    var questionItem = questions[questionIndex];
 
-        document.querySelector('#time').innerHTML = timer;
-        
-        stopQuiz(timer);
+    var isCorrect = questionItem.isCorrect;
 
-    } else {
+    var clickedButton = event.target.innerHTML;
 
-    var questionTitle = document.querySelector('#question-title');
 
-    var choicesList = document.querySelectorAll('#choices button');
+    if (!clickedButton.includes(isCorrect)) {
 
-    var question = questions[questionIndex];
+        /* play incorrect sound */
 
-    questionTitle.innerHTML = question.title;
+        if (timer < 10) {
 
-    var questionOptions = question.options;
+            timer = 0;
+            
+            updateTimer(timer);
 
-    // put into loop
-    for (index in questionOptions) choicesList[index].innerHTML= `${index}. ${questionOptions[index]}`;
-
-    if (event !== undefined) {
-
-        var isCorrect = question.isCorrect;
-
-        var clickedButton = event.target.innerHTML;
-
-        if (!clickedButton.includes(isCorrect)) {
+        } else {
 
             timer -= 10;
 
-            startTimer(timer);
+            updateTimer(timer);
         };
-        
-    };
+
+    } else {
+        /*play correct sound */
     };
 
-    questionIndex++ 
 };
 
-// timer 
-function startTimer(timerValue) {
+// function to loop through questions and replace html with text for current question
+function userAnswered () {
 
-    timerValue--;
+    if (questionIndex < 5 && timer > 0) {
+
+        var questionTitle = document.querySelector('#question-title');
+
+        var choicesList = document.querySelectorAll('#choices button');
+
+        var question = questions[questionIndex];
+    
+        questionTitle.innerHTML = question.title;
+    
+        var questionOptions = question.options;
+    
+        for (index in questionOptions) {
+
+            var choice = choicesList[index];
+
+            choice.innerHTML= `${index}. ${questionOptions[index]}`;
+
+            choice.addEventListener('click', isCorrect);
+        };
+
+    };
+
+    if (questionIndex < 4) questionIndex++ 
+
+};
+
+// update timer text
+
+function updateTimer (timerValue) {
 
     document.querySelector('#time').innerHTML = timerValue;
 
-    if (timerValue < 0) {
+    if (timerValue == 0) stopQuiz();
+};
 
-        timerValue = 0;
+// timer 
+function startTimer() {
 
-        stopQuiz(timerValue);
-    }
+    if (timer < 0) {
+
+        timer = 0;
+
+    } else {
+
+        timer--;
+        
+    };
+     
+ updateTimer(timer);
 
 };
 
@@ -141,19 +169,14 @@ function quizStarted (event) {
 
     document.querySelector('#time').innerHTML = timer;
 
-    timerInterval = setInterval(startTimer(timer),1000);
+    timerInterval = setInterval(startTimer,1000);
 
 };
-
-/*----------------------------------------*/
 
 //Event listeners
 
 // event listener for start button
 startButton.addEventListener('click', quizStarted);
-
-// event listener on the parent
-questionWrapper.addEventListener('click', userAnswered);
 
 // event listener for score submission
 submitButton.addEventListener('click', scoreSubmitted);
