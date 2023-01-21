@@ -93,9 +93,19 @@ function isCorrect (event) {
         };
 
     } else {
+
         /*play correct sound */
+        console.log('correct');
     };
 
+    if (questionIndex == 4) {
+
+        stopQuiz();
+
+    } else {
+
+        userAnswered();
+    };
 };
 
 // function to loop through questions and replace html with text for current question
@@ -124,7 +134,7 @@ function userAnswered () {
 
     };
 
-    if (questionIndex < 4) questionIndex++ 
+   questionIndex++ 
 
 };
 
@@ -155,9 +165,7 @@ function startTimer() {
 };
 
 // function triggered when start button clicked
-function quizStarted (event) {
-
-    event.stopPropagation();
+function quizStarted () {
 
     var startScreenWrapper = document.querySelector('#start-screen');
     
