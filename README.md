@@ -17,7 +17,7 @@ N/a
 
 ## Usage
 
-[Access finance application](https://rbenameur.github.io/javascript-quiz "Link to deployed github page")
+[Access JavaScript Quiz application](https://rbenameur.github.io/javascript-quiz "Link to deployed github page")
 
 In order to commence the quiz click the 'Start Quiz' button.
 ![Screenshot of landing page for javascript quiz](./assets/img/Landing_page.PNG "Screenshot of landing page for javascript quiz")
@@ -31,7 +31,7 @@ If all questions answered incorrectly, or user runs out of time the score will b
 If all questions answered correctly, time left on the timer is saved as the score.
 ![Screenshot of finished quiz with score 27](./assets/img/Quiz_finished_score_27.PNG "Screenshot of quiz finished with a score of 27")
 
-By clicking submit, the highscore is saved to local storage and the webpage is reset to the landing page. The highscore can be viewed by clickiing the 'View Highscores' link which redirects user to highscores page.
+By clicking submit, the highscore is saved to local storage and the webpage is reset to the landing page. The highscore can be viewed by clicking the 'View Highscores' link which redirects user to highscores page. The user can navigate back to the quiz or clear storage by clicking 'Go Back' or 'Clear Highscores' respectively
 ![Screenshot of highscore page](./assets/img/Highscore_page.PNG "Screenshot of highscore page")
 
 
