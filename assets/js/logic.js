@@ -7,6 +7,8 @@ var submitButton = document.querySelector('#submit');
 
 var score = document.querySelector('#final-score');
 
+var choicesList = document.querySelectorAll('#choices button span');
+
 var timer = 50;
 
 var questionIndex = 0;
@@ -63,6 +65,10 @@ function scoreSubmitted() {
 
 };
 
+function playSound(filePath) {
+    document.querySelector('#sound').innerHTML="<embed src=\""+filePath+"\" hidden=\"true\" autostart=\"true\" loop=\"false\"/>";
+};
+
 
 // function to check if answer was correct
 
@@ -74,10 +80,9 @@ function isCorrect (event) {
 
     var clickedButton = event.target.innerHTML;
 
+    if (clickedButton !== isCorrect) {
 
-    if (!clickedButton.includes(isCorrect)) {
-
-        /* play incorrect sound */
+        playSound("./assets/sfx/incorrect.wav");
 
         if (timer < 10) {
 
@@ -94,7 +99,7 @@ function isCorrect (event) {
 
     } else {
 
-        /*play correct sound */
+        playSound("./assets/sfx/correct.wav");
         console.log('correct');
     };
 
@@ -103,6 +108,8 @@ function isCorrect (event) {
         stopQuiz();
 
     } else {
+
+        questionIndex++ 
 
         userAnswered();
     };
@@ -115,8 +122,6 @@ function userAnswered () {
 
         var questionTitle = document.querySelector('#question-title');
 
-        var choicesList = document.querySelectorAll('#choices button');
-
         var question = questions[questionIndex];
     
         questionTitle.innerHTML = question.title;
@@ -127,14 +132,11 @@ function userAnswered () {
 
             var choice = choicesList[index];
 
-            choice.innerHTML= `${index}. ${questionOptions[index]}`;
+            choice.innerHTML= questionOptions[index];
 
-            choice.addEventListener('click', isCorrect);
         };
 
     };
-
-   questionIndex++ 
 
 };
 
@@ -182,6 +184,8 @@ function quizStarted () {
 };
 
 //Event listeners
+
+for (choice of choicesList) choice.addEventListener('click', isCorrect);
 
 // event listener for start button
 startButton.addEventListener('click', quizStarted);

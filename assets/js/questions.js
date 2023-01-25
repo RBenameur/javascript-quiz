@@ -1,53 +1,57 @@
 var questions = [
     {
-        title: 'test #1',
+        title: 'Function and var are known as:',
         options: [
-            'incorrect',
-            'incorrect',
-            'answer',  /*correct*/
-            'incorrect',
+            'Data types',
+            'Keywords',
+            'Declaration statements',
+            'Constructors',
         ],
-        isCorrect: 'answer'
+        isCorrect: 'Declaration statements'
     },
     {
-        title: 'test #2',
+        title: 'Which of the following variables takes precedences if they are named the same?',
         options: [
-            'incorrect',
-            'incorrect',
-            'incorrect',
-            'answer', /*correct*/
+            'Local variable',
+            'Global variable',
+            'Both',
+            'Throws an error',
         ],
-        isCorrect: 'answer'
+        isCorrect: 'Local variable'
     },
     {
-        title: 'test #3',
+        title: 'Which fo the following will not display an error in the console:',
         options: [
-            'answer', /*correct*/
-            'incorrect',
-            'incorrect',
-            'incorrect',
+            'Assigning a value to a variable using "="',
+            'Missing parenthesis',
+            'Missing semi-colons',
+            'Strings not wrapped in quotation marks',
         ],
 
-        isCorrect: 'answer'
+        isCorrect: 'Missing semi-colons'
     },
     {
-        title: 'test #4',
+        title: 'Which statement implies x and y are equal in value and type',
         options: [
-            'answer', /*correct*/
-            'incorrect',
-            'incorrect',
-            'incorrect',
+            'x = y',
+            'x === y',
+            'x !== y',
+            'x == y',
         ],
-        isCorrect: 'answer'
+        isCorrect: 'x === y'
     },
     {
-        title: 'test #5',
+        title: `Which of the following is the correct console output:
+        var x = "Hello"
+        var y = "World"
+        
+        console.log(x + y)`,
         options: [
-            'incorrect',
-            'incorrect',
-            'answer', /*correct*/
-            'incorrect',
+            'HelloWorld',
+            'World',
+            'Hello World',
+            'WorldHello',
         ],
-        isCorrect: 'answer'
+        isCorrect: 'HelloWorld'
     }
 ]
